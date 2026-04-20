@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    @apply bg-neutral text-text-main font-sans text-sm leading-relaxed;
+  }
+
+  h1 {
+    @apply text-2xl font-semibold text-text-main;
+  }
+
+  h2 {
+    @apply text-xl font-semibold text-text-main;
+  }
+
+  h3 {
+    @apply text-lg font-medium text-text-main;
+  }
+}
+
+@layer components {
+  .page-wrapper {
+    @apply ml-64 pt-16 p-6 min-h-screen bg-neutral;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-sm p-6 border border-border;
+  }
+
+  .label {
+    @apply text-xs font-medium text-muted uppercase tracking-wide;
+  }
+
+  .text-muted-sm {
+    @apply text-sm text-muted;
+  }
+}
