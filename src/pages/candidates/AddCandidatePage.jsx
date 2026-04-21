@@ -116,9 +116,10 @@ const AddCandidatePage = () => {
     };
 
     const result = await dispatch(addCandidate(payload));
+    console.log("Result of candidate", result)
     if (addCandidate.fulfilled.match(result)) {
       toastSuccess("Candidate added successfully.");
-      navigate(`/candidates/${result.payload._id}`);
+      navigate(`/candidates/${result.payload.candidate._id}`);
     } else {
       toastError(result.payload);
     }

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ROLES } from "./constants/roles";
 import { checkAuthThunk } from "./features/auth/authSlice";
 import { useAuth } from "./hooks/useAuth";
@@ -107,6 +107,8 @@ const AppRoutes = () => {
 
 const App = () => {
   const dispatch = useDispatch();
+  const data = useSelector(store=>store);
+  console.log("Data is ", data)
 
   // On every app load, attempt to restore session from refresh token cookie
   useEffect(() => {

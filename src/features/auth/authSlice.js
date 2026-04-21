@@ -87,6 +87,7 @@ const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    console.log("Builder", builder)
     // ── Login ──────────────────────────────────────────────────────────────
     builder
       .addCase(loginThunk.pending, (state) => {

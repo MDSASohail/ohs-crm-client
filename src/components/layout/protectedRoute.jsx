@@ -1,10 +1,13 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import Spinner from "../ui/Spinner";
+import { use } from "react";
 
 // Protects routes — checks authentication and optionally checks role
 const ProtectedRoute = ({ allowedRoles = [] }) => {
   const { isAuthenticated, user, isLoading } = useAuth();
+
+  
 
   // Still resolving auth state — show spinner
   if (isLoading) {

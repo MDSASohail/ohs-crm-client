@@ -12,7 +12,7 @@ export const store = configureStore({
     candidates: candidatesReducer,
     enrollments: enrollmentsReducer,
     payments: paymentsReducer,
-     institutes: institutesReducer,
-     courses: coursesReducer,
+    institutes: institutesReducer,
+    courses: coursesReducer,
   },
 });
