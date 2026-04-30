@@ -30,6 +30,10 @@ export const checkAuthThunk = createAsyncThunk(
       // Step 2 — call /auth/me with the new token directly in the header
       // We cannot rely on Redux here because the store hasn't been updated yet
       const meResponse = await getMeService(accessToken);
+      console.log("Return value",{
+        accessToken,
+        user: meResponse.data.data, // /auth/me returns user directly at data.data
+      })
       return {
         accessToken,
         user: meResponse.data.data, // /auth/me returns user directly at data.data

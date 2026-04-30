@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { toastSuccess, toastError } from "../../utils/toast";
 import { usePageTitle } from "../../hooks/usePageTitle";
+import RequiredDocsTab from "./RequiredDocsTab";
 import {
   ArrowLeft,
   Edit2,
@@ -26,6 +27,7 @@ import {
   GraduationCap,
   CreditCard,
   RefreshCw,
+  FolderOpen
 } from "lucide-react";
 import {
   fetchCandidateById,
@@ -127,7 +129,9 @@ const DocumentsTab = ({ candidateId, canWrite, isRoot }) => {
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [permDeleteTarget, setPermDeleteTarget] = useState(null);
   const [deleting, setDeleting] = useState(false);
-  
+
+  console.log("Documents", documents)
+
 
   const loadDocuments = async () => {
     setLoading(true);
@@ -424,7 +428,7 @@ const DocumentsTab = ({ candidateId, canWrite, isRoot }) => {
 };
 
 // ── Tabs ──────────────────────────────────────────────────────────────────────
-const TABS = ["Profile", "Documents"];
+const TABS = ["Profile", "Documents", "Required Documents"];
 
 // ── Main Page ─────────────────────────────────────────────────────────────────
 const CandidateDetailPage = () => {
@@ -720,7 +724,12 @@ const CandidateDetailPage = () => {
               {tab === "Documents" ? (
                 <span className="flex items-center gap-1.5">
                   <FileText className="h-3.5 w-3.5" />
-                  Documents
+                  Document
+                </span>
+              ) : tab === "Required Documents" ? (
+                <span className="flex items-center gap-1.5">
+                  <FolderOpen className="h-3.5 w-3.5" />
+                  Required Documents
                 </span>
               ) : (
                 tab
@@ -1006,6 +1015,28 @@ const CandidateDetailPage = () => {
               candidateId={id}
               canWrite={canEdit}
               isRoot={isRoot}
+            />
+          </Card>
+        )}
+        {/* ── Required Documents Tab ───────────────────────────────── */}
+        {activeTab === "Required Documents" && (
+          <Card>
+            <header className="flex items-center gap-2.5 mb-5 pb-4 border-b border-border">
+              <div className="h-8 w-8 rounded-lg bg-accent/10 flex items-center justify-center">
+                <FolderOpen className="h-4 w-4 text-accent" />
+              </div>
+              <div>
+                <h3 className="text-base font-semibold text-text-main">
+                  Required Documents
+                </h3>
+                <p className="text-xs text-muted mt-0.5">
+                  Course-specific documents required for enrollment
+                </p>
+              </div>
+            </header>
+            <RequiredDocsTab
+              candidateId={id}
+              canWrite={canEdit}
             />
           </Card>
         )}

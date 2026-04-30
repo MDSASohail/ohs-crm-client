@@ -33,9 +33,13 @@ import { useAuth } from "../../hooks/useAuth";
 import { ROLES } from "../../constants/roles";
 import { formatDate, formatMonthYear } from "../../utils/formatDate";
 import {
-  ENROLLMENT_STATUS,
-  ENROLLMENT_STATUS_LABELS,
-  ENROLLMENT_STATUS_COLORS,
+  ENROLLMENT_STATUS_IGC,
+  ENROLLMENT_STATUS_LABELS_IGC,
+  ENROLLMENT_STATUS_COLORS_IGC,
+  getStatusLabel,
+  getStatusColor,
+  getStatusesByCourse,
+  getCourseConfig
 } from "../../constants/statuses";
 import PageWrapper from "../../components/layout/PageWrapper";
 import Button from "../../components/ui/Button";
@@ -74,9 +78,16 @@ const Section = ({ title, icon: Icon, children, action }) => (
 );
 
 // ── Status pipeline component ─────────────────────────────────────────────────
-const StatusPipeline = ({ current }) => {
-  const steps = Object.values(ENROLLMENT_STATUS);
-  const currentIndex = steps.indexOf(current);
+const StatusPipeline = ({ current, status,  courseJourney }) => {
+  const steps = Object.values(courseJourney || []);
+  const statusArray = Object.values(status||[]);
+  const currentIndex = statusArray.indexOf(current);
+
+  console.log("steps", steps);
+  console.log("Current", current);
+  console.log("Index", currentIndex);
+  console.log("Statu", status)
+
 
   return (
     <div className="w-full overflow-x-auto pb-2">
@@ -101,7 +112,7 @@ const StatusPipeline = ({ current }) => {
                   className={`text-xs font-medium text-center max-w-[72px] leading-tight ${isActive ? "text-accent" : isDone ? "text-success" : "text-muted"
                     }`}
                 >
-                  {ENROLLMENT_STATUS_LABELS[step]}
+                  {step}
                 </span>
               </div>
               {index < steps.length - 1 && (
@@ -396,9 +407,30 @@ const EnrollmentDetailPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
 
+
+
+
+
   const { selected, detailLoading, detailError, mutating } = useSelector(
     (state) => state.enrollments
   );
+
+  // console.log("Selected", selected)
+  // console.log("Course", selected?.status)
+  const course = selected?.courseId?.shortCode; // dynamic (from DB / API)
+  const status = selected?.status;
+
+  // const label = getStatusLabel(course, status);
+  // const color = getStatusColor(course, status);
+  const courseJourney = getStatusesByCourse(course);
+  const configrationByCourse = getCourseConfig(course)
+  console.log("Config", configrationByCourse)
+
+
+
+
+
+
   usePageTitle(
     selected
       ? `${selected.candidateId?.fullName} — ${selected.courseId?.shortCode}`
@@ -419,7 +451,7 @@ const EnrollmentDetailPage = () => {
   useEffect(() => {
     if (selected) {
       setForm({
-        status: selected.status || ENROLLMENT_STATUS.ENQUIRY,
+        status: selected.status || ENROLLMENT_STATUS_IGC.ENQUIRY,
         learnerNumber: selected.learnerNumber || "",
         ig1Date: selected.ig1Date ? selected.ig1Date.split("T")[0] : "",
         ig2Date: selected.ig2Date ? selected.ig2Date.split("T")[0] : "",
@@ -626,7 +658,7 @@ const EnrollmentDetailPage = () => {
             </h3>
             <EnrollmentStatusBadge status={selected.status} />
           </div>
-          <StatusPipeline current={selected.status} />
+          <StatusPipeline current={status} status={configrationByCourse?.statuses || []} courseJourney={configrationByCourse?.labels || []} />
         </Card>
 
         {/* ── Enrollment Info ───────────────────────────────────────── */}
@@ -644,9 +676,9 @@ const EnrollmentDetailPage = () => {
                   onChange={handleChange}
                   className={selectClass}
                 >
-                  {Object.entries(ENROLLMENT_STATUS).map(([key, value]) => (
-                    <option key={key} value={value}>
-                      {ENROLLMENT_STATUS_LABELS[value]}
+                  {Object.entries(configrationByCourse?.labels || {}).map(([status, label]) => (
+                    <option key={status} value={status}>
+                      {label}
                     </option>
                   ))}
                 </select>
@@ -872,8 +904,9 @@ const EnrollmentDetailPage = () => {
           )}
         </Section>
 
-        {/* ── Checklist ─────────────────────────────────────────────── */}
-        <Section
+        {/* ── Checklist ─────────If necessary just uncomment only────────────────────────────────────── */}
+        {/* <Section
+          
           title="Checklist"
           icon={ClipboardList}
           action={
@@ -890,7 +923,7 @@ const EnrollmentDetailPage = () => {
             </p>
           ) : (
             <>
-              {/* Progress bar */}
+              Progress bar
               {totalSteps > 0 && (
                 <div className="mb-4">
                   <div className="h-2 bg-neutral rounded-full overflow-hidden">
@@ -924,7 +957,7 @@ const EnrollmentDetailPage = () => {
               </ul>
             </>
           )}
-        </Section>
+        </Section> */}
 
         {/* ── Remarks ───────────────────────────────────────────────── */}
         <Section title="Remarks" icon={MessageSquare}>

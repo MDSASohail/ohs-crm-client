@@ -11,8 +11,8 @@ import api from "../../config/axios";
 import { toastSuccess, toastError } from "../../utils/toast";
 import { usePageTitle } from "../../hooks/usePageTitle";
 import {
-    ENROLLMENT_STATUS,
-    ENROLLMENT_STATUS_LABELS,
+    ENROLLMENT_STATUS_IGC,
+  ENROLLMENT_STATUS_LABELS_IGC,
 } from "../../constants/statuses";
 
 const MONTHS = [
@@ -54,7 +54,7 @@ const AddEnrollmentPage = () => {
         enrollmentMonth: new Date().getMonth() + 1,
         enrollmentYear: currentYear,
         enrollmentDate: "",
-        status: ENROLLMENT_STATUS.ENQUIRY,
+        status: ENROLLMENT_STATUS_IGC.ENQUIRY,
         remarks: "",
     });
 
@@ -65,6 +65,8 @@ const AddEnrollmentPage = () => {
     const [candidateSearch, setCandidateSearch] = useState("");
     const [loadingDropdowns, setLoadingDropdowns] = useState(true);
     const [prefilledCandidate, setPrefilledCandidate] = useState(null);
+
+    console.log("Courses", courses)
 
     // Load dropdown data
     useEffect(() => {
@@ -100,6 +102,8 @@ const AddEnrollmentPage = () => {
         const { name, value } = e.target;
         setForm((prev) => ({ ...prev, [name]: value }));
         if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
+
+        
     };
 
     const validate = () => {
@@ -340,7 +344,7 @@ const AddEnrollmentPage = () => {
                             </div>
 
                             {/* Enrollment Month */}
-                            <div className="flex flex-col gap-1">
+                            {/* <div className="flex flex-col gap-1">
                                 <label className="text-xs font-medium text-muted uppercase tracking-wide">
                                     Enrollment Month
                                 </label>
@@ -356,10 +360,10 @@ const AddEnrollmentPage = () => {
                                         </option>
                                     ))}
                                 </select>
-                            </div>
+                            </div> */}
 
                             {/* Enrollment Year */}
-                            <div className="flex flex-col gap-1">
+                            {/* <div className="flex flex-col gap-1">
                                 <label className="text-xs font-medium text-muted uppercase tracking-wide">
                                     Enrollment Year
                                 </label>
@@ -375,7 +379,7 @@ const AddEnrollmentPage = () => {
                                         </option>
                                     ))}
                                 </select>
-                            </div>
+                            </div> */}
 
                             {/* Enrollment Date */}
                             <Input
@@ -397,9 +401,9 @@ const AddEnrollmentPage = () => {
                                     onChange={handleChange}
                                     className={selectClass}
                                 >
-                                    {Object.entries(ENROLLMENT_STATUS).map(([key, value]) => (
+                                    {Object.entries(ENROLLMENT_STATUS_IGC).map(([key, value]) => (
                                         <option key={key} value={value}>
-                                            {ENROLLMENT_STATUS_LABELS[value]}
+                                            {ENROLLMENT_STATUS_LABELS_IGC[value]}
                                         </option>
                                     ))}
                                 </select>

@@ -101,11 +101,11 @@ const CandidatesPage = () => {
           <Badge label="Active" colorClass="bg-green-100 text-success" dot />
         ),
     },
-    {
-      key: "createdAt",
-      label: "Added On",
-      render: (value) => formatDate(value),
-    },
+    // {
+    //   key: "createdAt",
+    //   label: "Added On",
+    //   render: (value) => formatDate(value),
+    // },
     {
       key: "actions",
       label: "Actions",

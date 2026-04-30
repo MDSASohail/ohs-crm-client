@@ -68,6 +68,10 @@ const SettingsPage = () => {
   const { user: currentUser, isRoot } = useAuth();
   usePageTitle("Settings");
 
+  const accessPermission = ['root','admin'];
+
+ 
+
   // Users state
   const [users, setUsers] = useState([]);
   const [usersLoading, setUsersLoading] = useState(true);
@@ -446,7 +450,7 @@ const SettingsPage = () => {
         )}
 
         {/* ── Role permissions reference ────────────────────────────── */}
-        <Section title="Role Permissions" icon={Shield}>
+        {accessPermission.includes(currentUser.role) && <Section title="Role Permissions" icon={Shield}>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
@@ -573,7 +577,8 @@ const SettingsPage = () => {
             </table>
           </div>
 
-        </Section>
+        </Section>}
+
         {/* ── Billing & Subscription ───────────────────────────────── */}
         {isRoot && (
           <Section title="Billing & Subscription" icon={CreditCard}>

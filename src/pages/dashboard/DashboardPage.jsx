@@ -35,6 +35,7 @@ import PageWrapper from "../../components/layout/PageWrapper";
 import Card from "../../components/ui/Card";
 import Spinner from "../../components/ui/Spinner";
 import { EnrollmentStatusBadge } from "../../components/ui/StatusBadge";
+import { useSelector } from "react-redux";
 
 // ── Stat card ─────────────────────────────────────────────────────────────────
 const StatCard = ({ label, value, icon: Icon, color, sub }) => (
@@ -76,6 +77,11 @@ const DashboardPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedYear, setSelectedYear] = useState(currentYear);
 
+  const paymentStatus = ['root','admin'];
+
+  const  userRole = useSelector((state)=>state.auth.user.role);
+  
+
   // Load all dashboard data in parallel
   useEffect(() => {
     const loadDashboard = async () => {
@@ -99,6 +105,7 @@ const DashboardPage = () => {
         setSummary(summaryRes.data.data);
         setMonthlyData(monthlyRes.data.data.months);
         setPassFailData(passFailRes.data.data);
+        console.log("Pass fail", passFailData)
         setUpcomingDates(upcomingRes.data.data);
         setPendingChecklist(checklistRes.data.data);
         setOverduePayments(overdueRes.data.data);
@@ -178,18 +185,18 @@ const DashboardPage = () => {
             color="bg-primary"
             sub={`${summary?.totalEnrollments ?? 0} total`}
           />
-          <StatCard
+          {paymentStatus.includes(userRole) && <StatCard
             label="Total Revenue"
             value={formatCurrency(summary?.financials?.totalRevenue ?? 0)}
             icon={TrendingUp}
             color="bg-success"
-          />
-          <StatCard
+          />}
+          {paymentStatus.includes(userRole) && <StatCard
             label="Outstanding"
             value={formatCurrency(summary?.financials?.totalOutstanding ?? 0)}
             icon={CreditCard}
             color="bg-danger"
-          />
+          />}
         </div>
 
         {/* ── Main grid ──────────────────────────────────────────────── */}
@@ -312,7 +319,7 @@ const DashboardPage = () => {
             </Card>
 
             {/* Overdue payments */}
-            <Card>
+            {paymentStatus.includes(userRole) && <Card>
               <SectionHeading
                 title="Overdue Payments"
                 icon={AlertCircle}
@@ -361,7 +368,7 @@ const DashboardPage = () => {
                   + {overduePayments.total - 5} more overdue
                 </p>
               )}
-            </Card>
+            </Card>}
           </div>
 
           {/* ── Right column (1/3 width) ─────────────────────────────── */}
@@ -437,8 +444,8 @@ const DashboardPage = () => {
               )}
             </Card>
 
-            {/* Pending checklist */}
-            <Card>
+            {/* Pending checklist. To enable only uncomment */}
+            {/* <Card>
               <SectionHeading
                 title="Pending Checklists"
                 icon={ClipboardList}
@@ -483,7 +490,7 @@ const DashboardPage = () => {
                   + {pendingChecklist.total - 5} more
                 </p>
               )}
-            </Card>
+            </Card> */}
           </div>
         </div>
       </section>

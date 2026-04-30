@@ -45,13 +45,13 @@ const NAV_ITEMS = [
     label: "Institutes",
     path: "/institutes",
     icon: Building2,
-    allowedRoles: [ROLES.ROOT, ROLES.ADMIN, ROLES.VIEWER],
+    allowedRoles: [ROLES.ROOT, ROLES.ADMIN],
   },
   {
     label: "Courses",
     path: "/courses",
     icon: BookOpen,
-    allowedRoles: [ROLES.ROOT, ROLES.ADMIN, ROLES.VIEWER],
+    allowedRoles: [ROLES.ROOT, ROLES.ADMIN],
   },
   {
     label: "Reminders",

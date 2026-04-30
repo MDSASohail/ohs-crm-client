@@ -15,8 +15,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { ROLES } from "../../constants/roles";
 import { formatDate, formatMonthYear } from "../../utils/formatDate";
 import {
-  ENROLLMENT_STATUS,
-  ENROLLMENT_STATUS_LABELS,
+  getCourseConfig
 } from "../../constants/statuses";
 import PageWrapper from "../../components/layout/PageWrapper";
 import Button from "../../components/ui/Button";
@@ -355,7 +354,8 @@ const EnrollmentsPage = () => {
               </div>
 
               {/* Status filter */}
-              <div className="flex flex-col gap-1">
+              {/* Need to review this */}
+              {/* <div className="flex flex-col gap-1">
                 <label className="text-xs font-medium text-muted uppercase tracking-wide">
                   Status
                 </label>
@@ -366,13 +366,13 @@ const EnrollmentsPage = () => {
                   className={selectClass}
                 >
                   <option value="">All Statuses</option>
-                  {Object.entries(ENROLLMENT_STATUS).map(([key, value]) => (
+                  {Object.entries(ENROLLMENT_STATUS_IGC).map(([key, value]) => (
                     <option key={key} value={value}>
-                      {ENROLLMENT_STATUS_LABELS[value]}
+                      {ENROLLMENT_STATUS_LABELS_IGC[value]}
                     </option>
                   ))}
                 </select>
-              </div>
+              </div> */}
 
               {/* Result filter */}
               <div className="flex flex-col gap-1">

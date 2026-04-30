@@ -46,6 +46,7 @@ import Modal from "../../components/ui/Modal";
 import ConfirmDialog from "../../components/ui/ConfirmDialog";
 import { PaymentStatusBadge } from "../../components/ui/StatusBadge";
 import api from "../../config/axios";
+import { current } from "@reduxjs/toolkit";
 
 // ── Select styling ────────────────────────────────────────────────────────────
 const selectClass =
@@ -93,6 +94,9 @@ const PaymentsPage = () => {
   const { user } = useAuth();
   const { current: payment, loading, error, mutating, mutateError } =
     useSelector((state) => state.payments);
+
+    
+
 
   // Enrollment info for display
   const [enrollment, setEnrollment] = useState(null);
@@ -661,7 +665,7 @@ const PaymentsPage = () => {
             </Card>
 
             {/* ── Amount saved ─────────────────────────────────────── */}
-            <Card>
+            {/* <Card>
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-text-main">
@@ -679,7 +683,7 @@ const PaymentsPage = () => {
                   {formatCurrency(payment.amountSaved)}
                 </p>
               </div>
-            </Card>
+            </Card> */}
           </>
         )}
       </section>

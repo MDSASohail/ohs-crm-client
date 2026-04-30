@@ -1,18 +1,23 @@
 import Badge from "./Badge";
 import {
-  ENROLLMENT_STATUS_LABELS,
-  ENROLLMENT_STATUS_COLORS,
   PAYMENT_STATUS_LABELS,
   PAYMENT_STATUS_COLORS,
+  getStatusLabel, getStatusColor
 } from "../../constants/statuses";
 
 // Enrollment status badge — pass the raw status string from DB
-export const EnrollmentStatusBadge = ({ status }) => {
+export const EnrollmentStatusBadge = ({ status, course ="IGC" }) => {
+
+  
+
+  const label = getStatusLabel(course, status);
+  const color = getStatusColor(course, status);
+
   if (!status) return <span className="text-muted text-xs">—</span>;
   return (
     <Badge
-      label={ENROLLMENT_STATUS_LABELS[status] || status}
-      colorClass={ENROLLMENT_STATUS_COLORS[status] || "bg-gray-100 text-gray-700"}
+      label={label}
+      colorClass={color || "bg-gray-100 text-gray-700"}
       dot
     />
   );

@@ -5,6 +5,8 @@ import enrollmentsReducer from "../features/enrollments/enrollmentsSlice";
 import paymentsReducer from "../features/payments/paymentsSlice";
 import institutesReducer from "../features/institutes/institutesSlice";
 import coursesReducer from "../features/courses/coursesSlice";
+import requiredDocTemplateReducer from '../features/requiredDocTemplate/requiredDocTemplateSlice';
+import candidateRequiredDocReducer from '../features/candidateRequiredDoc/candidateRequiredDocSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +16,7 @@ export const store = configureStore({
     payments: paymentsReducer,
     institutes: institutesReducer,
     courses: coursesReducer,
+    requiredDocTemplate: requiredDocTemplateReducer,
+    candidateRequiredDoc: candidateRequiredDocReducer,
   },
 });
