@@ -6,6 +6,7 @@ import { checkAuthThunk } from "./features/auth/authSlice";
 import { useAuth } from "./hooks/useAuth";
 import ProtectedRoute from "./components/layout/ProtectedRoute";
 import Spinner from "./components/ui/Spinner";
+import VaultPage from './pages/vault/VaultPage';
 
 // Auth
 import LoginPage from "./pages/auth/LoginPage";
@@ -78,6 +79,7 @@ const AppRoutes = () => {
         <Route path="/enrollments/:id" element={<EnrollmentDetailPage />} />
         <Route path="/payments" element={<PaymentsPage />} />
         <Route path="/reminders" element={<RemindersPage />} />
+        <Route path="/vault" element={<VaultPage />} />
       </Route>
 
       {/* ── Admin + Root only ──────────────────────────────────────────── */}

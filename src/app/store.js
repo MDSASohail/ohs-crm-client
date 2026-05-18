@@ -7,6 +7,7 @@ import institutesReducer from "../features/institutes/institutesSlice";
 import coursesReducer from "../features/courses/coursesSlice";
 import requiredDocTemplateReducer from '../features/requiredDocTemplate/requiredDocTemplateSlice';
 import candidateRequiredDocReducer from '../features/candidateRequiredDoc/candidateRequiredDocSlice';
+import vaultDocumentReducer from '../features/vaultDocument/vaultDocumentSlice';
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     courses: coursesReducer,
     requiredDocTemplate: requiredDocTemplateReducer,
     candidateRequiredDoc: candidateRequiredDocReducer,
+    vaultDocument: vaultDocumentReducer,
   },
 });

@@ -14,6 +14,7 @@ import {
   ScrollText,
   ShieldCheck,
   X,
+  Vault 
 } from "lucide-react";
 
 const NAV_ITEMS = [
@@ -54,6 +55,12 @@ const NAV_ITEMS = [
     allowedRoles: [ROLES.ROOT, ROLES.ADMIN],
   },
   {
+  label: 'Document Vault',
+  path: '/vault',
+  icon: Vault,
+  allowedRoles: [ROLES.ROOT, ROLES.ADMIN, ROLES.STAFF, ROLES.VIEWER],
+},
+  {
     label: "Reminders",
     path: "/reminders",
     icon: Bell,
@@ -77,6 +84,7 @@ const NAV_ITEMS = [
   icon: Settings,
   allowedRoles: [ROLES.ROOT, ROLES.ADMIN, ROLES.STAFF, ROLES.VIEWER],
 },
+
 ];
 
 const Sidebar = ({ isOpen, onClose }) => {
